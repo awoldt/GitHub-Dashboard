@@ -1,5 +1,5 @@
 import { Container, Spinner, Button } from "react-bootstrap";
-import { useState, Dispatch, SetStateAction, useRef } from "react";
+import { Dispatch, SetStateAction, useRef } from "react";
 import repo_details from "../interfaces/repo_details";
 import ownder_details from "../interfaces/owner_details";
 import GetGithubDashboard from "../functions/getGithubDashboard";
@@ -10,14 +10,17 @@ export default function Search({
   setLoad,
   ifLoading,
   currentView,
+  username,
+  setUsername,
 }: {
   setRepo: Dispatch<SetStateAction<repo_details[] | undefined>>;
   setOwner: Dispatch<SetStateAction<ownder_details | undefined>>;
   setLoad: Dispatch<SetStateAction<boolean>>;
   ifLoading: boolean;
   currentView: string;
+  username: string;
+  setUsername: Dispatch<SetStateAction<string>>;
 }) {
-  const [username, setUsername] = useState<string>("");
   const usernameInputRef = useRef<HTMLInputElement>(null);
 
   return (

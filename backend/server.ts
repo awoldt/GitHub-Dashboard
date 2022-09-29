@@ -30,6 +30,8 @@ app.get("/", (req, res) => {
 });
 
 app.post("/api/get-user-dashboard", async (req, res) => {
+  console.log("POST view is " + req.body.view);
+
   const REPO_DATA: repo_details[] | undefined | null = await getRepositories(
     OKTOKIT,
     req.body.username,

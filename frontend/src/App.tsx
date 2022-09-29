@@ -1,11 +1,12 @@
 import "./App.css";
-import { Col, Container, Row, Spinner } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import { useState } from "react";
 import repo_details from "./interfaces/repo_details";
 import owner_details from "./interfaces/owner_details";
 import Repo from "./components/Repo";
 import Search from "./components/SearchBar";
 import { motion, AnimatePresence, MotionConfig } from "framer-motion";
+import fetchGithubDashboard from "./functions/getGithubDashboard";
 
 function App() {
   const [repoList, setRepoList] = useState<repo_details[] | undefined>(
@@ -16,6 +17,7 @@ function App() {
   );
   const [loading, setLoading] = useState<boolean>(false);
   const [viewBy, setViewBy] = useState<string>("updated"); //default view for all repos
+  const [username, setUsername] = useState<string>("");
 
   return (
     <Container>
@@ -32,6 +34,8 @@ function App() {
               setLoad={setLoading}
               ifLoading={loading}
               currentView={viewBy}
+              username={username}
+              setUsername={setUsername}
             />
           </motion.div>
         </AnimatePresence>
@@ -120,14 +124,20 @@ function App() {
                   <AnimatePresence>
                     <motion.div
                       initial={{ opacity: 0 }}
-                      animate={{ opacity: [0, 1] }}
+                      animate={{ x: [400, 0], opacity: [0, 1] }}
                       exit={{ opacity: 0 }}
                     >
                       <select
                         id="view_by_select"
                         onChange={(e) => {
                           setViewBy(e.target.value);
-                          
+                          fetchGithubDashboard(
+                            username,
+                            viewBy,
+                            setRepoList,
+                            setOwnerDetails,
+                            setLoading
+                          );
                         }}
                       >
                         <option value={"updated"}>Updated on</option>

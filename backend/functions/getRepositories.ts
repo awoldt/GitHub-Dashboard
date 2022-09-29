@@ -6,7 +6,8 @@ export default async function getRepositories(
   view: "updated" | "created" | "pushed" | "full_name" | undefined
 ) {
   try {
-    console.log("getting repository data");
+    console.log("getting github data sorted by " + view);
+
     const data = await oktokit.request("GET /users/{username}/repos", {
       username: username,
       sort: view,
