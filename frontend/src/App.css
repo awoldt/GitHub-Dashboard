@@ -1,0 +1,45 @@
+@font-face {
+    font-family: InterTight-Black;
+    src: url("./fonts/InterTight-Black.ttf");
+}
+
+html{
+    background-color: #1a1a1a;
+}
+.container {
+    background-color:#1a1a1a;
+}
+#root {
+    background-color: #1a1a1a;
+}
+h1,h2,p,span {
+    color: white
+}
+.repo_div {
+    background-color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+#avatar_img {
+    border-radius: 100px;
+    width: 100px;
+    height: 100px;
+}
+#search_bar {
+    border-radius: 20px;
+    padding: 8px;
+    font-size: 18px;
+    display: inline-block
+}
+#search_btn {
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+}
+#view_by_select {
+    margin-bottom: 25px;
+    margin-left: 5px;
+    border-radius: 10px;
+    padding: 3px;
+}
