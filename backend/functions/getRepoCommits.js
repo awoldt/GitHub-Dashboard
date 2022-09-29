@@ -9,30 +9,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-function getOwner(oktokit, username) {
+function getRepoCommits(oktokit, ownerName, repos) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const data = yield oktokit.request("GET /users/{username}", {
-                username: username,
+            let commitData = [];
+            const data = yield oktokit.request("GET /repos/{owner}/{repo}/commits", {
+                owner: ownerName,
+                repo: repos.name,
             });
-            if (data.status === 200) {
-                return {
-                    login: data.data.login,
-                    avatar: data.data.avatar_url,
-                    html_url: data.data.html_url,
-                    name: data.data.name,
-                    location: data.data.location,
-                    email: data.data.email,
-                    bio: data.data.bio,
-                    twitter_username: data.data.twitter_username,
-                    num_of_followers: data.data.followers,
-                    num_of_following: data.data.following,
-                    acct_created_on: data.data.created_at,
-                };
+            //for each commit
+            //only need the latest 10 commits 
+            data.data.length > 10 ? data.data.splice(10) : null;
+            for (let y = 0; y < data.data.length; ++y) {
+                commitData.push({
+                    message: data.data[y].commit.message,
+                    html_url: data.data[y].html_url,
+                    sha: data.data[y].sha,
+                });
             }
-            else {
-                return null;
-            }
+            return commitData;
         }
         catch (e) {
             console.log(e);
@@ -40,4 +35,4 @@ function getOwner(oktokit, username) {
         }
     });
 }
-exports.default = getOwner;
+exports.default = getRepoCommits;

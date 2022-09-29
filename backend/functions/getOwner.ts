@@ -8,6 +8,7 @@ export default async function getOwner(oktokit: Octokit, username: string) {
 
     if (data.status === 200) {
       return {
+        login: data.data.login,
         avatar: data.data.avatar_url,
         html_url: data.data.html_url,
         name: data.data.name,

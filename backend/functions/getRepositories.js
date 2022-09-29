@@ -8,17 +8,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-function getRepositories(oktokit, username) {
+const getRepoCommits_1 = __importDefault(require("./getRepoCommits"));
+function getRepositories(oktokit, username, view, ownerLogin) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            console.log("getting repository data");
             const data = yield oktokit.request("GET /users/{username}/repos", {
                 username: username,
-                sort: "updated"
+                sort: view,
+                per_page: 100,
             });
             if (data.status === 200) {
-                return data.data.map((x) => {
+                return yield Promise.all(data.data.map((x) => __awaiter(this, void 0, void 0, function* () {
+                    //get commit data for each repo
+                    const commitData = yield (0, getRepoCommits_1.default)(oktokit, ownerLogin, x);
                     return {
                         name: x.name,
                         private: x.private,
@@ -29,8 +35,9 @@ function getRepositories(oktokit, username) {
                         homepage: x.homepage,
                         language: x.language,
                         default_branch: x.default_branch,
+                        commit_history: commitData,
                     };
-                });
+                })));
             }
             else {
                 return null;

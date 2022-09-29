@@ -1,4 +1,5 @@
 export default interface ownder_details {
+  login: string;
   avatar: string;
   html_url: string;
   name: string | null;

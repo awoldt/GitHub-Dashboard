@@ -13,7 +13,6 @@ dotenv.config();
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
-console.log(path.join(__dirname, "..", "frontend", "build", "static"));
 app.use(express.static(path.join(__dirname, "..", "frontend", "build")));
 
 const OKTOKIT = new Octokit({
@@ -32,16 +31,16 @@ app.get("/", (req, res) => {
 app.post("/api/get-user-dashboard", async (req, res) => {
   console.log("POST view is " + req.body.view);
 
-  const REPO_DATA: repo_details[] | undefined | null = await getRepositories(
-    OKTOKIT,
-    req.body.username,
-    req.body.view
-  );
-
-  //get owner data
   const OWNER_DATA: owner_details | null = await getOwner(
     OKTOKIT,
     req.body.username
+  );
+
+  const REPO_DATA: repo_details[] | null = await getRepositories(
+    OKTOKIT,
+    req.body.username,
+    req.body.view,
+    OWNER_DATA!.login
   );
 
   const RETURNDATA: github_data = {

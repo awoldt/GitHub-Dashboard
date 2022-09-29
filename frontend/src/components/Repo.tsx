@@ -1,4 +1,5 @@
 import repo_details from "../../../backend/interfaces/repo_details";
+import { Accordion } from "react-bootstrap";
 
 export default function Repo({ data }: { data: repo_details }) {
   return (
@@ -18,6 +19,31 @@ export default function Repo({ data }: { data: repo_details }) {
         </svg>{" "}
         Created on {data.created_at.split("T")[0]}
       </span>
+      <Accordion>
+        <Accordion.Item eventKey="0">
+          <Accordion.Header>Show commits</Accordion.Header>
+          <Accordion.Body>
+            <div style={{ padding: "10px" }}>
+              {data.commit_history?.map((x, index) => {
+                return (
+                  <div key={index}>
+                    <p style={{ marginBottom: "0px" }}>{x.message}</p>
+                    <div style={{ marginBottom: "10px" }}>
+                      {" "}
+                      <code style={{ fontSize: "13px" }}>
+                        Commit sha {x.sha}
+                      </code>
+                    </div>
+                    {index !== data.commit_history!.length - 1 && (
+                      <hr style={{ color: "white" }}></hr>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </Accordion.Body>
+        </Accordion.Item>
+      </Accordion>
     </div>
   );
 }
