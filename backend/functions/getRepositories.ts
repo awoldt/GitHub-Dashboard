@@ -1,10 +1,7 @@
 import { Octokit } from "octokit";
-import commit_details from "../interfaces/commit_details";
-import getRepoCommits from "./getRepoCommits";
 
 export default async function getRepositories(
   oktokit: Octokit,
-
   view: "updated" | "created" | "pushed" | "full_name" | undefined,
   ownerLogin: string,
   repositoriesPerPage: number
@@ -18,16 +15,8 @@ export default async function getRepositories(
     });
 
     if (data.status === 200) {
-      return await Promise.all(
-        data.data.map(async (x: any) => {
-          //get commit data for each repo
-          const commitData: commit_details[] | null = await getRepoCommits(
-            oktokit,
-            ownerLogin,
-            x,
-            repositoriesPerPage
-          );
-
+        return data.data.map((x: any) => {
+          
           return {
             name: x.name,
             private: x.private,
@@ -38,10 +27,9 @@ export default async function getRepositories(
             homepage: x.homepage,
             language: x.language,
             default_branch: x.default_branch,
-            commit_history: commitData,
+            
           };
         })
-      );
     } else {
       return null;
     }

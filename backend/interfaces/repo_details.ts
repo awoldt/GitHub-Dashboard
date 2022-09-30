@@ -1,5 +1,3 @@
-import commit_details from "./commit_details";
-
 export default interface repo_details {
   name: string;
   private: boolean;
@@ -10,5 +8,4 @@ export default interface repo_details {
   homepage: string;
   language: string;
   default_branch: string;
-  commit_history: commit_details[] | null;
 }

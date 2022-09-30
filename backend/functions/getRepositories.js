@@ -8,11 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const getRepoCommits_1 = __importDefault(require("./getRepoCommits"));
 function getRepositories(oktokit, view, ownerLogin, repositoriesPerPage) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -23,9 +19,7 @@ function getRepositories(oktokit, view, ownerLogin, repositoriesPerPage) {
                 per_page: repositoriesPerPage,
             });
             if (data.status === 200) {
-                return yield Promise.all(data.data.map((x) => __awaiter(this, void 0, void 0, function* () {
-                    //get commit data for each repo
-                    const commitData = yield (0, getRepoCommits_1.default)(oktokit, ownerLogin, x, repositoriesPerPage);
+                return data.data.map((x) => {
                     return {
                         name: x.name,
                         private: x.private,
@@ -36,9 +30,8 @@ function getRepositories(oktokit, view, ownerLogin, repositoriesPerPage) {
                         homepage: x.homepage,
                         language: x.language,
                         default_branch: x.default_branch,
-                        commit_history: commitData,
                     };
-                })));
+                });
             }
             else {
                 return null;
