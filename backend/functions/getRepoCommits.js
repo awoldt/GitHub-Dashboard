@@ -9,18 +9,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-function getRepoCommits(oktokit, ownerName, repos) {
+function getRepoCommits(oktokit, ownerName, repos, reposPerPage) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             let commitData = [];
             const data = yield oktokit.request("GET /repos/{owner}/{repo}/commits", {
                 owner: ownerName,
                 repo: repos.name,
+                per_page: reposPerPage === 25 ? 7 : reposPerPage === 50 ? 5 : reposPerPage === 75 ? 3 : 2,
             });
             if (data.status === 200) {
-                //for each commit
-                //only need the latest 10 commits
-                data.data.length > 10 ? data.data.splice(10) : null;
                 for (let y = 0; y < data.data.length; ++y) {
                     commitData.push({
                         message: data.data[y].commit.message,

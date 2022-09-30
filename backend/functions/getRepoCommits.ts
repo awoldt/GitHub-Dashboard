@@ -5,7 +5,8 @@ import commit_details from "../interfaces/commit_details";
 export default async function getRepoCommits(
   oktokit: Octokit,
   ownerName: string | null | undefined,
-  repos: repo_details
+  repos: repo_details,
+  reposPerPage: number
 ) {
   try {
     let commitData: commit_details[] = [];
@@ -13,12 +14,10 @@ export default async function getRepoCommits(
     const data = await oktokit.request("GET /repos/{owner}/{repo}/commits", {
       owner: ownerName!,
       repo: repos.name,
+      per_page: reposPerPage === 25 ? 7 : reposPerPage === 50 ? 5 : reposPerPage === 75 ? 3 : 2,
     });
 
     if (data.status === 200) {
-      //for each commit
-      //only need the latest 10 commits
-      data.data.length > 10 ? data.data.splice(10) : null;
       for (let y = 0; y < data.data.length; ++y) {
         commitData.push({
           message: data.data[y].commit.message,

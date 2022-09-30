@@ -4,14 +4,15 @@ import getRepoCommits from "./getRepoCommits";
 
 export default async function getRepositories(
   oktokit: Octokit,
-  username: string,
+
   view: "updated" | "created" | "pushed" | "full_name" | undefined,
   ownerLogin: string,
   repositoriesPerPage: number
 ) {
   try {
     const data = await oktokit.request("GET /users/{username}/repos", {
-      username: username,
+      type: "all",
+      username: ownerLogin,
       sort: view,
       per_page: repositoriesPerPage,
     });
@@ -23,7 +24,8 @@ export default async function getRepositories(
           const commitData: commit_details[] | null = await getRepoCommits(
             oktokit,
             ownerLogin,
-            x
+            x,
+            repositoriesPerPage
           );
 
           return {

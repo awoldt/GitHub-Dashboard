@@ -22,7 +22,7 @@ export default function Repo({ data }: { data: repo_details }) {
       {data.commit_history !== null && (
         <Accordion>
           <Accordion.Item eventKey="0">
-            <Accordion.Header>Show commits</Accordion.Header>
+            <Accordion.Header>Commits</Accordion.Header>
             <Accordion.Body>
               <div style={{ padding: "10px" }}>
                 {data.commit_history?.map((x, index) => {

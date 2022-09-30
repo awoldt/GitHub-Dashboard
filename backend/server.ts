@@ -38,7 +38,6 @@ app.post("/api/get-user-dashboard", async (req, res) => {
 
   const REPO_DATA: repo_details[] | null = await getRepositories(
     OKTOKIT,
-    req.body.username,
     req.body.view,
     OWNER_DATA!.login,
     req.body.numberOfRepos

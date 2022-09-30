@@ -32,7 +32,7 @@ export default function Search({
   const usernameInputRef = useRef<HTMLInputElement>(null);
 
   return (
-    <Container fluid className="text-center" style={{ paddingTop: "25%" }}>
+    <Container fluid className="text-center" style={{ paddingTop: "15%" }}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="36"

@@ -16,7 +16,7 @@ function App() {
     undefined
   );
   const [loading, setLoading] = useState<boolean>(false);
-  const [viewBy, setViewBy] = useState<string>("updated"); //default view for all repos
+  const [viewBy, setViewBy] = useState<string>("pushed"); //default view for all repos
   const [numOfRepos, setNumOfRepos] = useState<number>(25) //default number of repos to display 
   const [username, setUsername] = useState<string>("");
 
@@ -166,7 +166,7 @@ function App() {
                             setViewBy(e.target.value);
                           }}
                         >
-                          <option value={"updated"}>Updated on</option>
+                          <option value={"pushed"}>Updated on</option>
                           <option value={"created"}>Created on</option>
                         </select>
                         <select
@@ -182,7 +182,7 @@ function App() {
                         </select>
                         <code style={{ float: "right" }}>
                           Showing {repoList.length} repositories sorted by{" "}
-                          {viewBy === "updated" && "latest updated"}
+                          {viewBy === "pushed" && "latest updated"}
                           {viewBy === "created" && "creation date"}
                         </code>
                       </div>
