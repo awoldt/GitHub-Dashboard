@@ -13,7 +13,10 @@ dotenv.config();
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
-app.use(express.static(path.join(__dirname, "..", "frontend", "build")));
+console.log(
+  express.static(path.join(__dirname, "..", "..", "frontend", "build"))
+);
+app.use(express.static(path.join(__dirname, "..", "..", "frontend", "build")));
 
 const OKTOKIT = new Octokit({
   auth: process.env.GITHUB_API_KEY,
@@ -25,7 +28,12 @@ interface github_data {
 }
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "..", "frontend", "build", "index.html"));
+  console.log(
+    path.join(__dirname, "..", "..", "frontend", "build", "index.html")
+  );
+  res.sendFile(
+    path.join(__dirname, "..", "..", "frontend", "build", "index.html")
+  );
 });
 
 app.post("/api/get-user-dashboard", async (req, res) => {

@@ -24,12 +24,14 @@ dotenv_1.default.config();
 const app = (0, express_1.default)();
 app.use(body_parser_1.default.json());
 app.use((0, cors_1.default)());
-app.use(express_1.default.static(path_1.default.join(__dirname, "..", "frontend", "build")));
+console.log(express_1.default.static(path_1.default.join(__dirname, "..", "..", "frontend", "build")));
+app.use(express_1.default.static(path_1.default.join(__dirname, "..", "..", "frontend", "build")));
 const OKTOKIT = new octokit_1.Octokit({
     auth: process.env.GITHUB_API_KEY,
 });
 app.get("/", (req, res) => {
-    res.sendFile(path_1.default.join(__dirname, "..", "frontend", "build", "index.html"));
+    console.log(path_1.default.join(__dirname, "..", "..", "frontend", "build", "index.html"));
+    res.sendFile(path_1.default.join(__dirname, "..", "..", "frontend", "build", "index.html"));
 });
 app.post("/api/get-user-dashboard", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log("POST view is " + req.body.view);
