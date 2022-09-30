@@ -14,18 +14,23 @@ export default async function getRepoCommits(
       owner: ownerName!,
       repo: repos.name,
     });
-    //for each commit
-    //only need the latest 10 commits 
-    data.data.length > 10 ? data.data.splice(10) : null;
-    for (let y = 0; y < data.data.length; ++y) {
-      commitData.push({
-        message: data.data[y].commit.message,
-        html_url: data.data[y].html_url,
-        sha: data.data[y].sha,
-      });
-    }
 
-    return commitData;
+    if (data.status === 200) {
+      //for each commit
+      //only need the latest 10 commits
+      data.data.length > 10 ? data.data.splice(10) : null;
+      for (let y = 0; y < data.data.length; ++y) {
+        commitData.push({
+          message: data.data[y].commit.message,
+          html_url: data.data[y].html_url,
+          sha: data.data[y].sha,
+        });
+      }
+
+      return commitData;
+    } else {
+      return null;
+    }
   } catch (e) {
     console.log(e);
     return null;

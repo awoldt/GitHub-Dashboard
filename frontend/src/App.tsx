@@ -17,6 +17,7 @@ function App() {
   );
   const [loading, setLoading] = useState<boolean>(false);
   const [viewBy, setViewBy] = useState<string>("updated"); //default view for all repos
+  const [numOfRepos, setNumOfRepos] = useState<number>(25) //default number of repos to display 
   const [username, setUsername] = useState<string>("");
 
   useEffect(() => {
@@ -24,12 +25,13 @@ function App() {
       fetchGithubDashboard(
         username,
         viewBy,
+        numOfRepos,
         setRepoList,
         setOwnerDetails,
         setLoading
       );
     }
-  }, [viewBy]);
+  }, [viewBy, numOfRepos]);
 
   return (
     <Container>
@@ -46,8 +48,12 @@ function App() {
               setLoad={setLoading}
               ifLoading={loading}
               currentView={viewBy}
+              numOfRepos={numOfRepos}
+              setNumOfRepos={setNumOfRepos}
               username={username}
               setUsername={setUsername}
+              repoData={repoList}
+              ownerData={ownerDetails}
             />
           </motion.div>
         </AnimatePresence>
@@ -162,6 +168,17 @@ function App() {
                         >
                           <option value={"updated"}>Updated on</option>
                           <option value={"created"}>Created on</option>
+                        </select>
+                        <select
+                          id="num_of_repos_select"
+                          onChange={(e) => {
+                            setNumOfRepos(Number(e.target.value));
+                          }}
+                        >
+                          <option value={"25"}>25</option>
+                          <option value={"50"}>50</option>
+                          <option value={"75"}>75</option>
+                          <option value={"100"}>100</option>
                         </select>
                         <code style={{ float: "right" }}>
                           Showing {repoList.length} repositories sorted by{" "}

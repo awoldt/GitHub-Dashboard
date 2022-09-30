@@ -1,7 +1,7 @@
 import { Container, Spinner, Button } from "react-bootstrap";
 import { Dispatch, SetStateAction, useRef } from "react";
 import repo_details from "../interfaces/repo_details";
-import ownder_details from "../interfaces/owner_details";
+import owner_details from "../interfaces/owner_details";
 import GetGithubDashboard from "../functions/fetchGithubData";
 
 export default function Search({
@@ -10,16 +10,24 @@ export default function Search({
   setLoad,
   ifLoading,
   currentView,
+  numOfRepos,
+  setNumOfRepos,
   username,
   setUsername,
+  repoData,
+  ownerData,
 }: {
   setRepo: Dispatch<SetStateAction<repo_details[] | undefined>>;
-  setOwner: Dispatch<SetStateAction<ownder_details | undefined>>;
+  setOwner: Dispatch<SetStateAction<owner_details | undefined>>;
   setLoad: Dispatch<SetStateAction<boolean>>;
   ifLoading: boolean;
   currentView: string;
+  numOfRepos: number;
+  setNumOfRepos: React.Dispatch<React.SetStateAction<number>>;
   username: string;
   setUsername: Dispatch<SetStateAction<string>>;
+  repoData: repo_details[] | undefined;
+  ownerData: owner_details | undefined;
 }) {
   const usernameInputRef = useRef<HTMLInputElement>(null);
 
@@ -46,6 +54,7 @@ export default function Search({
             setUsername("");
             setOwner(undefined);
             setRepo(undefined);
+            setNumOfRepos(25);
           }
           setUsername(e.target.value);
         }}
@@ -54,6 +63,7 @@ export default function Search({
             GetGithubDashboard(
               username,
               currentView,
+              numOfRepos,
               setRepo,
               setOwner,
               setLoad
@@ -62,7 +72,7 @@ export default function Search({
         }}
       />
 
-      {!ifLoading && (
+      {!ifLoading && repoData === undefined && ownerData === undefined && (
         <Button
           id="search_btn"
           onClick={async () => {
@@ -70,6 +80,7 @@ export default function Search({
               GetGithubDashboard(
                 username,
                 currentView,
+                numOfRepos,
                 setRepo,
                 setOwner,
                 setLoad

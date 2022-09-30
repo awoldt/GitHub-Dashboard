@@ -6,13 +6,14 @@ export default async function getRepositories(
   oktokit: Octokit,
   username: string,
   view: "updated" | "created" | "pushed" | "full_name" | undefined,
-  ownerLogin: string
+  ownerLogin: string,
+  repositoriesPerPage: number
 ) {
   try {
     const data = await oktokit.request("GET /users/{username}/repos", {
       username: username,
       sort: view,
-      per_page: 100,
+      per_page: repositoriesPerPage,
     });
 
     if (data.status === 200) {

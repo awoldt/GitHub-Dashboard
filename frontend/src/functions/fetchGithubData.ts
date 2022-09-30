@@ -6,6 +6,7 @@ import axios from "axios";
 export default async function fetchGithubDashboard(
   username: string,
   viewBy: string,
+  numOfRepos: number,
   setRepo: Dispatch<SetStateAction<repo_details[] | undefined>>,
   setOwner: Dispatch<SetStateAction<owner_details | undefined>>,
   setLoad: Dispatch<SetStateAction<boolean>>
@@ -15,6 +16,7 @@ export default async function fetchGithubDashboard(
     const res = await axios.post("/api/get-user-dashboard", {
       username: username.trim(),
       view: viewBy,
+      numberOfRepos: numOfRepos
     });
 
     if (res.status === 200 && res.data.repos !== null) {
@@ -29,5 +31,6 @@ export default async function fetchGithubDashboard(
     }
   } catch (e) {
     alert("error while fetching gihub profile");
+    setLoad(false)
   }
 }

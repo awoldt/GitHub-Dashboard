@@ -34,7 +34,7 @@ app.get("/", (req, res) => {
 app.post("/api/get-user-dashboard", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log("POST view is " + req.body.view);
     const OWNER_DATA = yield (0, getOwner_1.default)(OKTOKIT, req.body.username);
-    const REPO_DATA = yield (0, getRepositories_1.default)(OKTOKIT, req.body.username, req.body.view, OWNER_DATA.login);
+    const REPO_DATA = yield (0, getRepositories_1.default)(OKTOKIT, req.body.username, req.body.view, OWNER_DATA.login, req.body.numberOfRepos);
     const RETURNDATA = {
         repos: REPO_DATA,
         owner: OWNER_DATA,

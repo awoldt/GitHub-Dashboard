@@ -13,13 +13,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const getRepoCommits_1 = __importDefault(require("./getRepoCommits"));
-function getRepositories(oktokit, username, view, ownerLogin) {
+function getRepositories(oktokit, username, view, ownerLogin, repositoriesPerPage) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const data = yield oktokit.request("GET /users/{username}/repos", {
                 username: username,
                 sort: view,
-                per_page: 100,
+                per_page: repositoriesPerPage,
             });
             if (data.status === 200) {
                 return yield Promise.all(data.data.map((x) => __awaiter(this, void 0, void 0, function* () {

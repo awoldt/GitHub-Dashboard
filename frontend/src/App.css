@@ -46,6 +46,12 @@ span {
   border-radius: 10px;
   padding: 3px;
 }
+#num_of_repos_select {
+  margin-bottom: 25px;
+  margin-left: 5px;
+  border-radius: 10px;
+  padding: 3px;
+}
 .accordion {
   margin-top: 25px;
 }

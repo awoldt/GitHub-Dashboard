@@ -40,7 +40,8 @@ app.post("/api/get-user-dashboard", async (req, res) => {
     OKTOKIT,
     req.body.username,
     req.body.view,
-    OWNER_DATA!.login
+    OWNER_DATA!.login,
+    req.body.numberOfRepos
   );
 
   const RETURNDATA: github_data = {
