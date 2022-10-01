@@ -3,26 +3,19 @@
 import axios from "axios";
 
 export default async function fetchCommitData(owner: string, repo: string) {
-   try {
+  try {
     const res = await axios.post("/api/get-repo-commits", {
-        owner: owner,
-        repo: repo
-    })
+      owner: owner,
+      repo: repo,
+    });
 
-
-    if(res.status === 200) {
-
-
-        console.log(res.data);
-
-
+    if (res.status === 200) {
+      console.log(res.data);
+      return res.data;
+    } else {
+      return null;
     }
-    else {
-      
-    }
-
-   }
-   catch(e) {
-   
-   }
+  } catch (e) {
+    return null;
+  }
 }

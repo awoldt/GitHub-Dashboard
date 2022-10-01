@@ -17,7 +17,7 @@ function App() {
   );
   const [loading, setLoading] = useState<boolean>(false);
   const [viewBy, setViewBy] = useState<string>("pushed"); //default view for all repos
-  const [numOfRepos, setNumOfRepos] = useState<number>(25) //default number of repos to display 
+  const [numOfRepos, setNumOfRepos] = useState<number>(25); //default number of repos to display
   const [username, setUsername] = useState<string>("");
 
   useEffect(() => {
@@ -180,7 +180,10 @@ function App() {
                           <option value={"75"}>75</option>
                           <option value={"100"}>100</option>
                         </select>
-                        <code style={{ float: "right" }}>
+
+                        <code
+                          style={{ display: "block", marginBottom: "25px" }}
+                        >
                           Showing {repoList.length} repositories sorted by{" "}
                           {viewBy === "pushed" && "latest updated"}
                           {viewBy === "created" && "creation date"}
@@ -196,7 +199,13 @@ function App() {
                             key={index}
                             exit={{ opacity: 0 }}
                           >
-                            <Repo data={x} ownerName={ownerDetails.login}/>
+                            <Repo
+                              data={x}
+                              ownerName={ownerDetails.login}
+                              repoIndex={index}
+                              currentRepoList={repoList}
+                              setRepoList={setRepoList}
+                            />
                           </motion.div>
                         );
                       })}
