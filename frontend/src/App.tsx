@@ -196,7 +196,7 @@ function App() {
                             key={index}
                             exit={{ opacity: 0 }}
                           >
-                            <Repo data={x} />
+                            <Repo data={x} ownerName={ownerDetails.login}/>
                           </motion.div>
                         );
                       })}

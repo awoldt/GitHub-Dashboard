@@ -5,10 +5,12 @@ import bodyParser from "body-parser";
 import repo_details from "./interfaces/repo_details";
 import owner_details from "./interfaces/owner_details";
 import getOwner from "./functions/getOwner";
+import getRepoCommits from "./functions/getRepoCommits";
 import cors from "cors";
 import path from "path";
 import dotenv from "dotenv";
-dotenv.config();
+import commit_details from "./interfaces/commit_details";
+dotenv.config({ path: path.join(__dirname, "..", ".env") });
 
 const app = express();
 app.use(bodyParser.json());
@@ -17,6 +19,8 @@ console.log(
   express.static(path.join(__dirname, "..", "..", "frontend", "build"))
 );
 app.use(express.static(path.join(__dirname, "..", "..", "frontend", "build")));
+
+console.log(process.env.GITHUB_API_KEY);
 
 const OKTOKIT = new Octokit({
   auth: process.env.GITHUB_API_KEY,
@@ -57,6 +61,19 @@ app.post("/api/get-user-dashboard", async (req, res) => {
   };
 
   await res.json(RETURNDATA);
+});
+
+app.post("/api/get-repo-commits", async (req, res) => {
+  const COMMIT_DATA: commit_details[] | null = await getRepoCommits(
+    OKTOKIT,
+    req.body.owner,
+    req.body.repo
+  );
+
+  console.log(COMMIT_DATA);
+  console.log("commit data above");
+
+  return res.json(COMMIT_DATA);
 });
 
 app.listen(8080, () => {

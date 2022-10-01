@@ -27,7 +27,7 @@ export default async function getRepositories(
             homepage: x.homepage,
             language: x.language,
             default_branch: x.default_branch,
-            
+            commit_history: null //will be null until user requests commit data
           };
         })
     } else {
