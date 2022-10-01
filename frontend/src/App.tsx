@@ -221,7 +221,7 @@ function App() {
         )}
       </Row>
 
-      <MotionConfig transition={{ duration: 5 }}>
+      <MotionConfig transition={{ duration: 3 }}>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: [0, 1] }}

@@ -33,7 +33,7 @@ export default function Repo({
         {data.language! && (
           <span style={{ fontWeight: "bold" }}>({data.language})</span>
         )}
-
+        {data.description === null && <p className="text-muted"><i>(no description)</i></p>}
         <p style={{ marginBottom: "0px", marginTop: "5px" }}>
           {data.description}
         </p>
@@ -77,9 +77,9 @@ export default function Repo({
           >
             Showing {data.commit_history.length} of the latest commits
           </code>
-          {data.commit_history.map((x: commit_details) => {
+          {data.commit_history.map((x: commit_details, index: number) => {
             return (
-              <div>
+              <div key={index}>
                 <code style={{ color: "lightgray" }}>
                   commit ID -{" "}
                   <a href={x.html_url} target="_blank">
@@ -90,7 +90,13 @@ export default function Repo({
                 <p>{x.message}</p>
               </div>
             );
+
           })}
+          <code style={{cursor: 'pointer'}} onClick={() => {
+            const x = [...currentRepoList]
+            x[repoIndex].commit_history = null
+            setRepoList(x)
+          }}><u>Close commits</u></code>
         </div>
       )}
     </div>

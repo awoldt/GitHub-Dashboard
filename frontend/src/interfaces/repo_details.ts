@@ -10,5 +10,5 @@ export default interface repo_details {
   homepage: string;
   language: string;
   default_branch: string;
-  commit_history: commit_details[]
+  commit_history: commit_details[] | null;
 }
