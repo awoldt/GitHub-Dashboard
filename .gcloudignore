@@ -1,4 +1,5 @@
 !backend/.env
+!backend/build
 !frontend/build
 backend/node_modules
 frontend/node_modules
