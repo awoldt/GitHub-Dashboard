@@ -17,6 +17,7 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(express.static(path.join(__dirname, "..", "..", "frontend", "build")));
 
+
 const OKTOKIT = new Octokit({
   auth: process.env.GITHUB_API_KEY,
 });
@@ -68,6 +69,7 @@ app.post("/api/get-repo-commits", async (req, res) => {
     OKTOKIT,
     req.body.owner,
     req.body.repo
+    
   );
 
   return res.json(COMMIT_DATA);
