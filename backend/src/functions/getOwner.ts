@@ -24,7 +24,6 @@ export default async function getOwner(oktokit: Octokit, username: string) {
       return null;
     }
   } catch (e) {
-    console.log(e);
     return null;
   }
 }

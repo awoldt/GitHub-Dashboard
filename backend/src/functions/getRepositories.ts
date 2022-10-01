@@ -15,26 +15,24 @@ export default async function getRepositories(
     });
 
     if (data.status === 200) {
-        return data.data.map((x: any) => {
-          
-          return {
-            name: x.name,
-            private: x.private,
-            html_url: x.html_url,
-            description: x.description,
-            created_at: x.created_at,
-            updated_at: x.pushed_at,
-            homepage: x.homepage,
-            language: x.language,
-            default_branch: x.default_branch,
-            commit_history: null //will be null until user requests commit data
-          };
-        })
+      return data.data.map((x: any) => {
+        return {
+          name: x.name,
+          private: x.private,
+          html_url: x.html_url,
+          description: x.description,
+          created_at: x.created_at,
+          updated_at: x.pushed_at,
+          homepage: x.homepage,
+          language: x.language,
+          default_branch: x.default_branch,
+          commit_history: null, //will be null until user requests commit data
+        };
+      });
     } else {
       return null;
     }
   } catch (e) {
-    console.log(e);
     return null;
   }
 }

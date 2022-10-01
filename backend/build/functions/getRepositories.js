@@ -30,7 +30,7 @@ function getRepositories(oktokit, view, ownerLogin, repositoriesPerPage) {
                         homepage: x.homepage,
                         language: x.language,
                         default_branch: x.default_branch,
-                        commit_history: null //will be null until user requests commit data
+                        commit_history: null, //will be null until user requests commit data
                     };
                 });
             }
@@ -39,7 +39,6 @@ function getRepositories(oktokit, view, ownerLogin, repositoriesPerPage) {
             }
         }
         catch (e) {
-            console.log(e);
             return null;
         }
     });

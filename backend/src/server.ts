@@ -15,12 +15,7 @@ dotenv.config({ path: path.join(__dirname, "..", ".env") });
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
-console.log(
-  express.static(path.join(__dirname, "..", "..", "frontend", "build"))
-);
 app.use(express.static(path.join(__dirname, "..", "..", "frontend", "build")));
-
-console.log(process.env.GITHUB_API_KEY);
 
 const OKTOKIT = new Octokit({
   auth: process.env.GITHUB_API_KEY,
@@ -32,17 +27,12 @@ interface github_data {
 }
 
 app.get("/", (req, res) => {
-  console.log(
-    path.join(__dirname, "..", "..", "frontend", "build", "index.html")
-  );
   res.sendFile(
     path.join(__dirname, "..", "..", "frontend", "build", "index.html")
   );
 });
 
 app.post("/api/get-user-dashboard", async (req, res) => {
-  console.log("POST view is " + req.body.view);
-
   const OWNER_DATA: owner_details | null = await getOwner(
     OKTOKIT,
     req.body.username
@@ -79,9 +69,6 @@ app.post("/api/get-repo-commits", async (req, res) => {
     req.body.owner,
     req.body.repo
   );
-
-  console.log(COMMIT_DATA);
-  console.log("commit data above");
 
   return res.json(COMMIT_DATA);
 });
