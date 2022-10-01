@@ -48,19 +48,29 @@ app.post("/api/get-user-dashboard", async (req, res) => {
     req.body.username
   );
 
-  const REPO_DATA: repo_details[] | null = await getRepositories(
-    OKTOKIT,
-    req.body.view,
-    OWNER_DATA!.login,
-    req.body.numberOfRepos
-  );
+  //if there is no owner data, return null for both repo and user
+  if (OWNER_DATA === null) {
+    const RETURNDATA: github_data = {
+      repos: null,
+      owner: null,
+    };
 
-  const RETURNDATA: github_data = {
-    repos: REPO_DATA,
-    owner: OWNER_DATA,
-  };
+    await res.json(RETURNDATA);
+  } else {
+    const REPO_DATA: repo_details[] | null = await getRepositories(
+      OKTOKIT,
+      req.body.view,
+      OWNER_DATA!.login,
+      req.body.numberOfRepos
+    );
 
-  await res.json(RETURNDATA);
+    const RETURNDATA: github_data = {
+      repos: REPO_DATA,
+      owner: OWNER_DATA,
+    };
+
+    await res.json(RETURNDATA);
+  }
 });
 
 app.post("/api/get-repo-commits", async (req, res) => {

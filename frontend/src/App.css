@@ -69,3 +69,12 @@ span {
 .accordion-button:not(collapsed) {
   color: white !important;
 }
+#owner_description_col {
+  background-color: #212121;
+  height: fit-content;
+  padding: 20px;
+  border-radius: 10px;
+}
+.show_commits_btn{
+  border-radius: 10px;
+}

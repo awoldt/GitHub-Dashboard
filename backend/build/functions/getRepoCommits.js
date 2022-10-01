@@ -15,12 +15,14 @@ function default_1(oktokit, owner, repo) {
             const data = yield oktokit.request("GET /repos/{owner}/{repo}/commits", {
                 owner: owner,
                 repo: repo,
+                per_page: 10,
             });
             return data.data.map((x) => {
                 return {
                     sha: x.sha,
                     message: x.commit.message,
-                    author: x.commit.author.name
+                    author: x.commit.author.name,
+                    html_url: x.html_url,
                 };
             });
         }

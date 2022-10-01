@@ -26,7 +26,7 @@ function getRepositories(oktokit, view, ownerLogin, repositoriesPerPage) {
                         html_url: x.html_url,
                         description: x.description,
                         created_at: x.created_at,
-                        updated_at: x.updated_at,
+                        updated_at: x.pushed_at,
                         homepage: x.homepage,
                         language: x.language,
                         default_branch: x.default_branch,

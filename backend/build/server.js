@@ -38,12 +38,22 @@ app.get("/", (req, res) => {
 app.post("/api/get-user-dashboard", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log("POST view is " + req.body.view);
     const OWNER_DATA = yield (0, getOwner_1.default)(OKTOKIT, req.body.username);
-    const REPO_DATA = yield (0, getRepositories_1.default)(OKTOKIT, req.body.view, OWNER_DATA.login, req.body.numberOfRepos);
-    const RETURNDATA = {
-        repos: REPO_DATA,
-        owner: OWNER_DATA,
-    };
-    yield res.json(RETURNDATA);
+    //if there is no owner data, return null for both repo and user
+    if (OWNER_DATA === null) {
+        const RETURNDATA = {
+            repos: null,
+            owner: null,
+        };
+        yield res.json(RETURNDATA);
+    }
+    else {
+        const REPO_DATA = yield (0, getRepositories_1.default)(OKTOKIT, req.body.view, OWNER_DATA.login, req.body.numberOfRepos);
+        const RETURNDATA = {
+            repos: REPO_DATA,
+            owner: OWNER_DATA,
+        };
+        yield res.json(RETURNDATA);
+    }
 }));
 app.post("/api/get-repo-commits", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const COMMIT_DATA = yield (0, getRepoCommits_1.default)(OKTOKIT, req.body.owner, req.body.repo);

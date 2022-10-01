@@ -21,7 +21,12 @@ export default async function fetchGithubDashboard(
 
     if (res.status === 200 && res.data.repos !== null) {
       setLoad(false);
-      setRepo(res.data.repos);
+      //makes updated at dates clean for user 
+      setRepo(res.data.repos.map((x: repo_details) => {
+        x.updated_at = new Date(x.updated_at).toDateString()
+        x.created_at = new Date(x.created_at).toDateString()
+        return x
+      }));
       setOwner(res.data.owner);
     } else {
       setLoad(false);
@@ -30,7 +35,10 @@ export default async function fetchGithubDashboard(
       alert("Error fetching username " + username);
     }
   } catch (e) {
-    alert("error while fetching gihub profile");
-    setLoad(false)
+    setLoad(false);
+    setRepo(undefined);
+    setOwner(undefined);
+    alert("Could not get account " + username);
+   
   }
 }
