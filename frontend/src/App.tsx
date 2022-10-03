@@ -78,6 +78,7 @@ function App() {
                       />
                       {ownerDetails.name! && <h1>{ownerDetails.name}</h1>}
                       {ownerDetails.bio! && <p>{ownerDetails.bio}</p>}
+                  
                       {ownerDetails.location! && (
                         <span>
                           <svg
@@ -163,6 +164,13 @@ function App() {
                       exit={{ opacity: 0 }}
                     >
                       <div>
+                        <code
+                          style={{ display: "block", marginBottom: "25px", fontSize: '20px'}}
+                        >
+                          Showing {repoList.length} repositories sorted by{" "}
+                          {viewBy === "pushed" && "latest updated"}
+                          {viewBy === "created" && "creation date"}
+                        </code>
                         <select
                           id="view_by_select"
                           onChange={(e) => {
@@ -183,15 +191,8 @@ function App() {
                           <option value={"75"}>75</option>
                           <option value={"100"}>100</option>
                         </select>
-
-                        <code
-                          style={{ display: "block", marginBottom: "25px" }}
-                        >
-                          Showing {repoList.length} repositories sorted by{" "}
-                          {viewBy === "pushed" && "latest updated"}
-                          {viewBy === "created" && "creation date"}
-                        </code>
                       </div>
+                      <hr></hr>
                     </motion.div>
                     {repoList.length !== 0 &&
                       repoList.map((x: repo_details, index: number) => {
@@ -202,7 +203,8 @@ function App() {
                             key={index}
                             exit={{ opacity: 0 }}
                           >
-                            <Repo
+                            <div id={"repo_div_" + index}>
+                              <Repo
                               data={x}
                               ownerName={ownerDetails.login}
                               repoIndex={index}
@@ -210,6 +212,8 @@ function App() {
                               setRepoList={setRepoList}
                               currentView={viewBy}
                             />
+                            </div>
+                            
                           </motion.div>
                         );
                       })}
@@ -221,7 +225,7 @@ function App() {
         )}
       </Row>
 
-      <MotionConfig transition={{ duration: 3 }}>
+      <MotionConfig transition={{ duration: 2 }}>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: [0, 1] }}

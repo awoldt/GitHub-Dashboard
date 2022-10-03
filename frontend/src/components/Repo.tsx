@@ -50,7 +50,7 @@ export default function Repo({
       </div>
 
       {data.commit_history === null && (
-        <button
+        <code
           onClick={async () => {
             const res = await fetchCommitData(ownerName, data.name);
 
@@ -62,7 +62,7 @@ export default function Repo({
           className="show_commits_btn"
         >
           Show commits
-        </button>
+        </code>
       )}
 
       {data.commit_history !== null && (
@@ -96,7 +96,7 @@ export default function Repo({
             const x = [...currentRepoList]
             x[repoIndex].commit_history = null
             setRepoList(x)
-          }}><u>Close commits</u></code>
+          }}><a href={"#repo_div_" + repoIndex}><u>Close commits</u></a></code>
         </div>
       )}
     </div>

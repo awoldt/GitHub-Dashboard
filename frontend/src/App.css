@@ -77,4 +77,9 @@ span {
 }
 .show_commits_btn{
   border-radius: 10px;
+  cursor: pointer;
+}
+hr{
+  height: 2px;
+  background-color: white;
 }
