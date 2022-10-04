@@ -1,6 +1,7 @@
 import repo_details from "../interfaces/repo_details";
 import fetchCommitData from "../functions/fetchCommitData";
 import commit_details from "../interfaces/commit_details";
+import "../language-colors.css"
 
 export default function Repo({
   data,
@@ -25,13 +26,13 @@ export default function Repo({
           target="_blank"
           style={{ textDecoration: "none" }}
         >
-          <h2 style={{ display: "inline", marginRight: "20px" }}>
+          <h2 style={{ display: "inline", marginRight: "20px", fontWeight: 'bold'}}>
             {data.name}
           </h2>
         </a>
 
         {data.language! && (
-          <span style={{ fontWeight: "bold" }}>({data.language})</span>
+          <span style={{ fontWeight: "bold" }} className={data.language}>({data.language})</span>
         )}
         {data.description === null && <p className="text-muted"><i>(no description)</i></p>}
         <p style={{ marginBottom: "0px", marginTop: "5px" }}>
@@ -66,7 +67,7 @@ export default function Repo({
       )}
 
       {data.commit_history !== null && (
-        <div>
+        <div style={{padding: '15px'}}>
           <code
             style={{
               textDecoration: "underline",
