@@ -9,6 +9,9 @@ html {
 .container {
   background-color: #1a1a1a;
 }
+.container-fluid {
+  background-color: #1a1a1a;
+}
 #root {
   background-color: #1a1a1a;
 }
@@ -64,7 +67,6 @@ span {
 }
 .accordion-body {
   background-color: #333 !important;
-
 }
 .accordion-button:not(collapsed) {
   color: white !important;
@@ -75,11 +77,11 @@ span {
   padding: 20px;
   border-radius: 10px;
 }
-.show_commits_btn{
+.show_commits_btn {
   border-radius: 10px;
   cursor: pointer;
 }
-hr{
+hr {
   height: 2px;
   background-color: white;
 }

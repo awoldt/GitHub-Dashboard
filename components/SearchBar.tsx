@@ -2,7 +2,7 @@ import { Container, Spinner, Button } from "react-bootstrap";
 import { Dispatch, SetStateAction, useRef } from "react";
 import repo_details from "../interfaces/repo_details";
 import owner_details from "../interfaces/owner_details";
-import GetGithubDashboard from "../functions/fetchGithubData";
+import GetGithubDashboard from "../functions/fetchUserDashboard";
 
 export default function Search({
   setRepo,

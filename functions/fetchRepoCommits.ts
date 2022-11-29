@@ -9,6 +9,8 @@ export default async function fetchCommitData(owner: string, repo: string) {
       repo: repo,
     });
 
+    console.log(res.data);
+
     if (res.status === 200) {
       return res.data;
     } else {

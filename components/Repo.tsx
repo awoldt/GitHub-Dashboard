@@ -1,7 +1,6 @@
 import repo_details from "../interfaces/repo_details";
-import fetchCommitData from "../functions/fetchCommitData";
+import fetchCommitData from "../functions/fetchRepoCommits";
 import commit_details from "../interfaces/commit_details";
-import "../language-colors.css"
 
 export default function Repo({
   data,
@@ -24,17 +23,30 @@ export default function Repo({
         <a
           href={data.html_url}
           target="_blank"
+          rel="noreferrer"
           style={{ textDecoration: "none" }}
         >
-          <h2 style={{ display: "inline", marginRight: "20px", fontWeight: 'bold'}}>
+          <h2
+            style={{
+              display: "inline",
+              marginRight: "20px",
+              fontWeight: "bold",
+            }}
+          >
             {data.name}
           </h2>
         </a>
 
         {data.language! && (
-          <span style={{ fontWeight: "bold" }} className={data.language}>({data.language})</span>
+          <span style={{ fontWeight: "bold" }} className={data.language}>
+            ({data.language})
+          </span>
         )}
-        {data.description === null && <p className="text-muted"><i>(no description)</i></p>}
+        {data.description === null && (
+          <p className="text-muted">
+            <i>(no description)</i>
+          </p>
+        )}
         <p style={{ marginBottom: "0px", marginTop: "5px" }}>
           {data.description}
         </p>
@@ -56,7 +68,7 @@ export default function Repo({
             const res = await fetchCommitData(ownerName, data.name);
 
             const x: repo_details[] = [...currentRepoList];
-            x[repoIndex].commit_history = res;
+            x[repoIndex].commit_history = res.data;
 
             setRepoList(x);
           }}
@@ -67,7 +79,7 @@ export default function Repo({
       )}
 
       {data.commit_history !== null && (
-        <div style={{padding: '15px'}}>
+        <div style={{ padding: "15px" }}>
           <code
             style={{
               textDecoration: "underline",
@@ -83,7 +95,7 @@ export default function Repo({
               <div key={index}>
                 <code style={{ color: "lightgray" }}>
                   commit ID -{" "}
-                  <a href={x.html_url} target="_blank">
+                  <a href={x.html_url} target="_blank" rel="noreferrer">
                     {x.sha}
                   </a>
                 </code>
@@ -91,13 +103,19 @@ export default function Repo({
                 <p>{x.message}</p>
               </div>
             );
-
           })}
-          <code style={{cursor: 'pointer'}} onClick={() => {
-            const x = [...currentRepoList]
-            x[repoIndex].commit_history = null
-            setRepoList(x)
-          }}><a href={"#repo_div_" + repoIndex}><u>Close commits</u></a></code>
+          <code
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              const x = [...currentRepoList];
+              x[repoIndex].commit_history = null;
+              setRepoList(x);
+            }}
+          >
+            <a href={"#repo_div_" + repoIndex}>
+              <u>Close commits</u>
+            </a>
+          </code>
         </div>
       )}
     </div>
