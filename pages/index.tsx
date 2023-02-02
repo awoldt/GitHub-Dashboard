@@ -80,7 +80,7 @@ function App() {
                     <AnimatePresence>
                       <motion.div
                         initial={{ opacity: 0 }}
-                        animate={{ x: [-400, 0], opacity: [0, 1] }}
+                        animate={{ opacity: [0, 1] }}
                         exit={{ opacity: 0 }}
                       >
                         <div id="owner_description_col">
@@ -185,7 +185,7 @@ function App() {
                       <AnimatePresence>
                         <motion.div
                           initial={{ opacity: 0 }}
-                          animate={{ x: [400, 0], opacity: [0, 1] }}
+                          animate={{ opacity: [0, 1] }}
                           exit={{ opacity: 0 }}
                         >
                           <div>
@@ -228,7 +228,7 @@ function App() {
                             return (
                               <motion.div
                                 initial={{ opacity: 0 }}
-                                animate={{ x: [400, 0], opacity: [0, 1] }}
+                                animate={{ opacity: [0, 1] }}
                                 key={index}
                                 exit={{ opacity: 0 }}
                               >
